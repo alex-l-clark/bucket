@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Bucket_BetaApp: App {
+    @StateObject private var activityViewModel = ActivityViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(activityViewModel)
         }
     }
 }
