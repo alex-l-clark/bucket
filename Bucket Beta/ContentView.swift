@@ -7,6 +7,27 @@
 
 import SwiftUI
 
+struct ActivityRow: View {
+    let activity: Activity
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(activity.title)
+                .font(.headline)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            if let description = activity.description, !description.isEmpty {
+                Text(description)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
 struct ContentView: View {
     @EnvironmentObject private var viewModel: ActivityViewModel
     @State private var editMode: EditMode = .inactive
@@ -17,18 +38,7 @@ struct ContentView: View {
                 List {
                     ForEach(viewModel.activities) { activity in
                         NavigationLink(destination: ActivityDetailView(activity: activity)) {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(activity.title)
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                if activity.completionCount > 0 {
-                                    Text("Completed \(activity.completionCount) time\(activity.completionCount == 1 ? "" : "s")")
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            ActivityRow(activity: activity)
                         }
                         .tint(Color("BucketGold"))
                     }
