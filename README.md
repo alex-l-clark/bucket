@@ -1,1 +1,1 @@
-# bucket is the app for knowing where you want to go
+# bucket is the app for knowing where you want to go - vibe coded
